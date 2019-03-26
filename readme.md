@@ -18,7 +18,7 @@ The user must have two sets of coordinates for each rearrangement breakpoint:
 +  **a-a', b-b', c-c', d-d'** - indicate the regions where the improper read pairs that identify the breakpoint region are mapped (translocation cluster)
 + **a'-b', c'-d'** - indicate the breakpoint region
 
-Using this coordinates, the algorithm will try and map the split reads, assuming that:
+Using these coordinates, the algorithm will try and map the split reads, assuming that:
 
 + split-reads were not mapped in previous steps;
 + the pair of the split-read is mapped within the translocation cluster and is marked in the SAM file as “unmapped-mate”.
