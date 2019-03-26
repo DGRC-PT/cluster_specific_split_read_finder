@@ -20,11 +20,11 @@ The user must have two sets of coordinates for each rearrangement breakpoint:
 
 Using this coordinates, the algorithm will try and map the split reads, assuming that:
 
-a) split-reads were not mapped in previous steps
-c) the pair of the split-read is mapped within the translocation cluster and is marked in the SAM file as “unmapped-mate”.
++ split-reads were not mapped in previous steps;
++ the pair of the split-read is mapped within the translocation cluster and is marked in the SAM file as “unmapped-mate”.
 
 
-The algorithm can be divided in two parts: data selection, where the potential split-reads and breakpoint regions are selected and prepared for analysis; and read processing, where BWA tries to map iteratively the potentially split-reads against the breakpoint regions (Figure 1).
+The algorithm can be divided in two parts: **data selection**, where the potential split-reads and breakpoint regions are selected and prepared for analysis; and **read processing**, where BWA tries to map iteratively the potentially split-reads against the breakpoint regions.
 
 **Data selection consists of:**
 
@@ -42,7 +42,6 @@ The algorithm can be divided in two parts: data selection, where the potential s
 + python2
 + python sys, os, collections and [biopython](https://github.com/biopython/biopython)
 + [BWA alignment software](http://bio-bwa.sourceforge.net/) , installed and on path
-
 
 
 ## Usage:
