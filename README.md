@@ -13,7 +13,7 @@ To be able to run this tool, the user must have:
 
 The user must have diferent sets of coordinates, depending on the type of alteration to be analyzed:
 
-![alt text](https://qxomov.s.cld.pt "Types of alterations and inputs examples")
+![alt text](https://cld.pt/dl/download/23d1ff2b-f8e7-4a5e-b2f8-1e4fae5cdbdd/Esquema%20split%20reads.jpg "Types of alterations and inputs examples")
 
 + large green and yellow arrows depict the locations of the clusters
 +  A and B indicate the chromosomes
@@ -62,7 +62,7 @@ Where:
 
 ## The output:
 
-![alt text](https://3gflqg.s.cld.pt "Split results example")
+![alt text](https://cld.pt/dl/download/a0ba07da-1053-4120-8c81-befbfb7f92ac/resume.png "Split results example")
 
 The results are outputed to the terminal prompt as the example above.
 The result is a set of tab-separated columns, with the information:
