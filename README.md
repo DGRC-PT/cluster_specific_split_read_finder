@@ -49,7 +49,7 @@ The algorithm can be divided in two parts: **data selection**, where the potenti
 
 
 In the command line:
-<pre><code> python split_reads_V5_beta.py [A:a-a’-b’-b] [B:c-c’-d’-d] [SAM file] [reference genome] [trans/inv/del/dup/ins]
+<pre><code> python split_reads_V8.py [A:a-a’-b’-b] [B:c-c’-d’-d] [SAM file] [reference genome] [trans/inv/del/dup/ins]
 </code></pre>
 
 Where:
@@ -78,11 +78,14 @@ The result is a set of tab-separated columns, with the information:
 
 ## Notes:
 
++ The tool outputs all the reads where the sum of the chunks is higher than 80% of the read lenght
++ To take into account insertions on the breakpoint regions, reads with only one chunk mapping, but that chunk consisting in at least 68% of the total read length, are ouputted.
 + The tool was tested for translocations, inversions, deletions, duplications and insertions. For complex rearrangements one may decompose the rearrangement into simpler ones.
 + The tool was developed for small reads, but can, be used for bigger reads, including mate-pair variable size reads
 + Depending on the size of the regions and the coverage of the library, this tool might take a while to run
 + The results are outputed to the terminal prompt. The user may change that by adding to the end of the comand "> split_read.results"
 + Results may be validated manually based on the plausibility of their genomic positions, their orientation relative to each other, to the karyotype and to the reciprocal breakpoint.
++ Depending on the data coverage, this tool may be more sucessfull or less
 
 
 ## License:

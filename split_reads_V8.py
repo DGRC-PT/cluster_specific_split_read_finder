@@ -145,7 +145,8 @@ def search_pairs(dickeys):
 	for el in dickeys:
 		newd.append(el.split(".")[0])
 	newr=[item for item, count in collections.Counter(newd).items() if count > 1]
-	return newr
+	oth=[item for item, count in collections.Counter(newd).items() if count == 1]
+	return newr, oth
 
 
 def test_others(list_start, list_end, sz):#used in new_parse_output
@@ -167,7 +168,7 @@ def test_others(list_start, list_end, sz):#used in new_parse_output
 			
 
 def new_parse_output(dic_final, t):
-	readn=search_pairs(dic_final.keys())
+	readn, oth=search_pairs(dic_final.keys())
 	posp={}
 	for readname in readn:
 		sz=int(readname.split("_")[1])#readsize
@@ -182,6 +183,17 @@ def new_parse_output(dic_final, t):
 					posp[readname]=[[readname+".start", l[1], len(l[9]), l[2], l[3], l[9]], [readname+".end", end[1], len(end[9]), end[2], end[3], end[9]]]
 				elif t=="end":
 					posp[readname]=[[readname+".start", st[1], len(st[9]), st[2], st[3], st[9]], [readname+".end", l[1], len(l[9]), l[2], l[3], l[9]]]
+	print oth
+	for r in oth:
+		if r+".start" in dic_final:
+			if len(dic_final[r+".start"][-1].split("\t")[9])>=0.68*sz:
+				st=dic_final[r+".start"][-1].split("\t")
+				posp[readname]=[[r+".start", st[1], len(st[9]), st[2], st[3], st[9]], [readname+".end", "insuficient alignment for the end chunk."]]
+		if r+".end" in dic_final:
+			if len(dic_final[r+".end"][-1].split("\t")[9])>=0.68*sz:
+				end=dic_final[r+".end"][-1].split("\t")
+				posp[readname]=[[r+".start", "insuficient alignment for the start chunk."], [readname+".end", end[1], len(end[9]), end[2], end[3], end[9]]]
+
 	return posp
 
 
@@ -215,10 +227,16 @@ def write_output(samfile, posp):
 	for key, value in posp.items():
 		r=key.split("_")[0]
 		pair_pos=search_pair(samfile, r)
-		startpos=calc_pos(value[0])
-		endpos=calc_pos(value[1])
-		print(r+"\t"+value[0][0]+"\t"+read_orientation(value[0][1])+"\t"+str(value[0][2])+"\t"+startpos+"\t"+value[0][5]+"\t"+pair_pos)
-		print(r+"\t"+value[1][0]+"\t"+read_orientation(value[1][1])+"\t"+str(value[1][2])+"\t"+endpos+"\t"+value[1][5]+"\t"+pair_pos)
+		if len(value[0])>2:
+			startpos=calc_pos(value[0])
+			print(r+"\t"+value[0][0]+"\t"+read_orientation(value[0][1])+"\t"+str(value[0][2])+"\t"+startpos+"\t"+value[0][5]+"\t"+pair_pos)
+		if len(value[0])==2:
+			print(r+"\t"+value[0][0]+"\t"+value[0][1])
+		if len(value[1])>2:
+			endpos=calc_pos(value[1])
+			print(r+"\t"+value[1][0]+"\t"+read_orientation(value[1][1])+"\t"+str(value[1][2])+"\t"+endpos+"\t"+value[1][5]+"\t"+pair_pos)
+		if len(value[1])==2:
+			print(r+"\t"+value[1][0]+"\t"+value[1][1])
 		print("\n")
 
 def organize(unmappeds, ttt, samfile):
